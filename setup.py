@@ -21,7 +21,7 @@ setup(
     author='Piotr Kilczuk',
     author_email='piotr@tymaszweb.pl',
     name='django-template-finder',
-    version=('.').join(templatefinder.__version__),
+    version='.'.join(str(v) for v in templatefinder.VERSION),
     description='Simple Django utility that allows you to find templates with names matching given pattern',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.rst')).read(),
     url='https://github.com/TyMaszWeb/django-template-finder',
