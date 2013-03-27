@@ -35,8 +35,11 @@ def find_all_templates(pattern='*.html'):
                 for root, dirnames, filenames in os.walk(dir):
                     for basename in filenames:
                         filename = os.path.join(root, basename)
-                        if fnmatch.fnmatch(filename, '*' + pattern):
-                            templates.append(filename[len(dir)+1:])
+                        rel_filename = filename[len(dir)+1:]
+                        if fnmatch.fnmatch(filename, pattern) or \
+                           fnmatch.fnmatch(basename, pattern) or \
+                           fnmatch.fnmatch(rel_filename, pattern):
+                            templates.append(rel_filename)
         else:
             LOGGER.debug('%s is not supported' % loader)
-    return sorted(templates)
+    return sorted(set(templates))
