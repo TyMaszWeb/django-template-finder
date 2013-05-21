@@ -1,14 +1,12 @@
 import unittest
-import sys
 
 
 class TestTemplateFinder(unittest.TestCase):
 
     def test_dummy(self):
-        self.fail('Foo bar')
+        self.fail('Make it real mate')
 
 
 def main():
     suite = unittest.TestLoader().loadTestsFromTestCase(TestTemplateFinder)
-    unittest.TextTestRunner().run(suite)
-    sys.exit()
+    return suite

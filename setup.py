@@ -36,6 +36,6 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=False,
-    zip_safe = False,
-    test_suite = 'templatefinder.tests.main',
+    zip_safe=False,
+    test_suite='templatefinder.tests.main',
 )
