@@ -32,9 +32,10 @@ setup(
         'Django>=1.2',
     ],
     tests_require=[
+        'tox>=1.4.3',
     ],
     packages=find_packages(),
     include_package_data=False,
     zip_safe = False,
-    #test_suite = 'runtests.main',
+    test_suite = 'templatefinder.tests.main',
 )
