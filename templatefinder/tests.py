@@ -1,6 +1,5 @@
-import unittest
-
 from django.conf import settings
+from django.utils import unittest
 
 from . import find_all_templates
 

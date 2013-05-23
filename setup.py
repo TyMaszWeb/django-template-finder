@@ -28,9 +28,7 @@ setup(
     license='BSD License',
     platforms=['OS Independent'],
     classifiers=CLASSIFIERS,
-    install_requires=[
-        'Django>=1.2',
-    ],
+    install_requires=[],
     tests_require=[
         'tox>=1.4.3',
     ],

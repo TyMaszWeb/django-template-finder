@@ -33,6 +33,9 @@ Installation
 That's it! It's just a simple utility library, no need to add anything to
 ``INSTALLED_APPS``.
 
+You will need a recent version of Django. Chances are django-template-finder
+will work with Django 1.2+, however only versions above 1.3 are supported.
+
 Usage
 =====
 
