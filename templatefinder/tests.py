@@ -24,3 +24,11 @@ class AppDirectoriesLoaderTest(TemplateFinderTestMixin, unittest.TestCase):
         settings.TEMPLATE_LOADERS = (
             'django.template.loaders.app_directories.Loader',
         )
+
+
+class FilesystemLoaderTest(TemplateFinderTestMixin, unittest.TestCase):
+
+    def setUp(self):
+        settings.TEMPLATE_LOADERS = (
+            'django.template.loaders.filesystem.Loader',
+        )
