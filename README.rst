@@ -16,11 +16,7 @@ Supported template loaders:
 
 - ``django.template.loaders.app_directories.Loader``
 - ``django.template.loaders.filesystem.Loader``
-
-ATM **django-template-finder** does not support cached loader nor egg loader.
-Support for cached loader is likely to come soon.
-
-.. warning:: Until version 1.0 the API is likely to change.
+- ``django.template.loaders.cached.Loader``
 
 Contributions and comments are welcome using Github at: 
 http://github.com/TyMaszWeb/django-template-finder
