@@ -18,7 +18,7 @@ Supported template loaders:
 - ``django.template.loaders.filesystem.Loader``
 - ``django.template.loaders.cached.Loader``
 
-Contributions and comments are welcome using Github at: 
+Contributions and comments are welcome using Github at:
 http://github.com/TyMaszWeb/django-template-finder
 
 Installation
@@ -59,6 +59,48 @@ Search for all templates under ``menu/``, recursively, in all template loaders:
 
     find_all_templates('menu/*')
 
+Generate nicer, human-friendly names for discovered templates in forms:
+
+::
+
+    from templatefinder import find_all_templates, template_choices
+    from django.forms.widgets import Select
+
+    class MyForm(Form):
+        def __init__(self, *args, **kwargs):
+            super(MyForm, self).__init__(*args, **kwargs)
+            found_templates = find_all_templates('menu/*')
+            choices = template_choices(templates=found_templates, display_names=None)
+            self.fields['myfield'].widget = Select(choices=list(choices))
+
+Providing human-friendly names for discovered templates, overriding the built-in
+name calculation:
+
+::
+
+    from templatefinder import find_all_templates, template_choices
+
+    found_templates = find_all_templates('menu/*')
+    choices = template_choices(templates=found_templates, display_names={
+        'menu/menu.html': 'My super awesome menu',
+    })
+
+Using a project-wide setting for overriding the template display names:
+
+::
+
+    from django.conf import settings
+    # note: this should be in your Django project's settings module, and is
+    # only set here for illustration purposes.
+    settings.TEMPLATEFINDER_DISPLAY_NAMES = {
+        'menu/menu.html': 'Super menu',
+        'menu/another-menu.html': 'Another menu',
+    }
+
+    from templatefinder import find_all_templates, template_choices
+
+    found_templates = find_all_templates('menu/*')
+    choices = template_choices(found_templates)
 
 Bugs & Contribution
 ===================
