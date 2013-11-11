@@ -6,10 +6,26 @@ from django.conf import settings
 from django.utils.importlib import import_module
 
 
-__all__ = ('find_all_templates',)
+__all__ = ('find_all_templates', 'flatten_template_loaders')
 
 
 LOGGER = logging.getLogger('templatefinder')
+
+
+def flatten_template_loaders(templates):
+    """
+    Given a collection of template loaders, unwrap them into one flat iterable.
+
+    :param templates: template loaders to unwrap
+    :return: template loaders as an iterable of strings.
+    :rtype: generator expression
+    """
+    for loader in templates:
+        if not isinstance(loader, basestring):
+            for subloader in flatten_template_loaders(loader):
+                yield subloader
+        else:
+            yield loader
 
 
 def find_all_templates(pattern='*.html'):
@@ -22,18 +38,7 @@ def find_all_templates(pattern='*.html'):
     .. important:: At the moment egg loader is not supported.
     """
     templates = []
-
-    # See: https://docs.djangoproject.com/en/dev/ref/templates/api/#django.template.loaders.cached.Loader
-    template_loaders = list(settings.TEMPLATE_LOADERS)
-    if 'django.template.loaders.cached.Loader' in template_loaders:
-        cached_loader_index = template_loaders.index('django.template.loaders.cached.Loader')
-        extra_loaders = template_loaders[cached_loader_index + 1]
-        # both the cached loader and the next element (list of regular loaders)
-        del template_loaders[cached_loader_index]
-        del template_loaders[cached_loader_index]
-        for loader in extra_loaders:
-            template_loaders.insert(cached_loader_index, loader)
-
+    template_loaders = flatten_template_loaders(settings.TEMPLATE_LOADERS)
     for loader_name in template_loaders:
         module, klass = loader_name.rsplit('.', 1)
         if loader_name in (
