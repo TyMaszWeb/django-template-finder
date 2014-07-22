@@ -5,6 +5,10 @@ import os
 from django.conf import settings
 from django.utils.importlib import import_module
 
+try:
+    from django.utils.six import string_types
+except ImportError:
+    string_types = (basestring,)
 
 __all__ = ('find_all_templates', 'flatten_template_loaders')
 
@@ -21,7 +25,7 @@ def flatten_template_loaders(templates):
     :rtype: generator expression
     """
     for loader in templates:
-        if not isinstance(loader, basestring):
+        if not isinstance(loader, string_types):
             for subloader in flatten_template_loaders(loader):
                 yield subloader
         else:
