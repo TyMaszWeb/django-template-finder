@@ -1,6 +1,10 @@
 from __future__ import absolute_import
 
-from .utils import *
+# this is required for setup.py to work
+try:
+    from .utils import *
+except ImportError:
+    pass
 
 
-VERSION = (0, 5,)
+VERSION = (0, 5, 1,)
