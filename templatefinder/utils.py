@@ -3,12 +3,24 @@ import logging
 import os
 
 from django.conf import settings
-from django.utils.importlib import import_module
+
+
+try:
+    from importlib import import_module
+except ImportError:
+    from django.utils.importlib import import_module
 
 try:
     from django.utils.six import string_types
 except ImportError:
     string_types = (basestring,)
+try:
+    from django.template import Engine
+except ImportError:
+    class Engine(object):
+        @staticmethod
+        def get_default():
+            return None
 
 __all__ = ('find_all_templates', 'flatten_template_loaders')
 
@@ -49,7 +61,11 @@ def find_all_templates(pattern='*.html'):
             'django.template.loaders.app_directories.Loader',
             'django.template.loaders.filesystem.Loader',
         ):
-            loader = getattr(import_module(module), klass)()
+            loader_class = getattr(import_module(module), klass)
+            if getattr(loader_class, '_accepts_engine_in_init', False):
+                loader = loader_class(Engine.get_default())
+            else:
+                loader = loader_class()
             for dir in loader.get_template_sources(''):
                 for root, dirnames, filenames in os.walk(dir):
                     for basename in filenames:
