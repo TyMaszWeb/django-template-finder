@@ -4,6 +4,7 @@
 _env/
 .tox/
 /*.egg
+/.eggs/
 
 _build/
 dist/
