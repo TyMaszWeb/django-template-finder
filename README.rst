@@ -2,7 +2,8 @@
 django-template-finder
 ======================
 
-.. image:: https://api.travis-ci.org/TyMaszWeb/django-template-finder.png?branch=master
+.. image:: https://travis-ci.org/TyMaszWeb/django-template-finder.svg?branch=master
+   :target: https://travis-ci.org/TyMaszWeb/django-template-finder
 
 django-template-finder is a simple Django utility that allows you to find
 templates with names matching given pattern.
