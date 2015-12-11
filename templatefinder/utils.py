@@ -64,7 +64,7 @@ def find_all_templates(pattern='*.html'):
                            fnmatch.fnmatch(rel_filename, pattern):
                             templates.append(rel_filename)
         else:
-            LOGGER.debug('%s is not supported' % loader_name)
+            LOGGER.debug('{0!s} is not supported'.format(loader_name))
     return sorted(set(templates))
 
 
